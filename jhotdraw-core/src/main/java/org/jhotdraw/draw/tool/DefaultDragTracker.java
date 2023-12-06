@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.draw.tool;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.Figure;
 import java.awt.*;
 import java.awt.event.*;
@@ -84,11 +85,13 @@ public class DefaultDragTracker extends AbstractTool implements DragTracker {
     public DefaultDragTracker() {
     }
 
+    @FeatureEntryPoint(value = "mouseMoved")
     @Override
     public void mouseMoved(MouseEvent evt) {
         updateCursor(editor.findView((Container) evt.getSource()), evt.getPoint());
     }
 
+    @FeatureEntryPoint(value = "mousePressed")
     @Override
     public void mousePressed(MouseEvent evt) {
         super.mousePressed(evt);
@@ -123,7 +126,7 @@ public class DefaultDragTracker extends AbstractTool implements DragTracker {
             }
         }
     }
-
+    @FeatureEntryPoint(value = "mouseDragged")
     @Override
     public void mouseDragged(MouseEvent evt) {
         DrawingView view = getView();
@@ -153,6 +156,7 @@ public class DefaultDragTracker extends AbstractTool implements DragTracker {
         }
     }
 
+    @FeatureEntryPoint(value = "mouseReleased")
     @Override
     public void mouseReleased(MouseEvent evt) {
         super.mouseReleased(evt);
@@ -199,6 +203,7 @@ public class DefaultDragTracker extends AbstractTool implements DragTracker {
         fireToolDone();
     }
 
+    @FeatureEntryPoint(value = "setDraggedfigure")
     @Override
     public void setDraggedFigure(Figure f) {
         anchorFigure = f;
