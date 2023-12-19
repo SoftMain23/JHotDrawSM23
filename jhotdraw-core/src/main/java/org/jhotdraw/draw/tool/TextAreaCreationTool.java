@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.draw.tool;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.draw.figure.TextHolderFigure;
 import java.awt.*;
@@ -117,6 +118,7 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
      * Creates a new figure at the mouse location.
      * If editing is in progress, this finishes editing.
      */
+
     @Override
     public void mousePressed(MouseEvent e) {
         // Note: The search sequence used here, must be
@@ -156,6 +158,7 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
         }
     }
 
+    @FeatureEntryPoint("BeginTextAreaEdit")
     protected void beginEdit(TextHolderFigure textHolder) {
         if (textArea == null) {
             textArea = new FloatingTextArea();
@@ -170,6 +173,7 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
         typingTarget = textHolder;
     }
 
+    @FeatureEntryPoint("GetFieldBounds")
     private Rectangle2D.Double getFieldBounds(TextHolderFigure figure) {
         Rectangle2D.Double r = figure.getDrawingArea();
         Insets2D.Double insets = figure.getInsets();
