@@ -85,13 +85,13 @@ public class DefaultDragTracker extends AbstractTool implements DragTracker {
     public DefaultDragTracker() {
     }
 
-    @FeatureEntryPoint(value = "mouseMoved")
+    @FeatureEntryPoint(value = "#7-mouseMoved")
     @Override
     public void mouseMoved(MouseEvent evt) {
         updateCursor(editor.findView((Container) evt.getSource()), evt.getPoint());
     }
 
-    @FeatureEntryPoint(value = "mousePressed")
+    @FeatureEntryPoint(value = "#7-mousePressed")
     @Override
     public void mousePressed(MouseEvent evt) {
         super.mousePressed(evt);
@@ -126,7 +126,7 @@ public class DefaultDragTracker extends AbstractTool implements DragTracker {
             }
         }
     }
-    @FeatureEntryPoint(value = "mouseDragged")
+    @FeatureEntryPoint(value = "#7-mouseDragged")
     @Override
     public void mouseDragged(MouseEvent evt) {
         DrawingView view = getView();
@@ -156,7 +156,7 @@ public class DefaultDragTracker extends AbstractTool implements DragTracker {
         }
     }
 
-    @FeatureEntryPoint(value = "mouseReleased")
+    @FeatureEntryPoint(value = "#7-mouseReleased")
     @Override
     public void mouseReleased(MouseEvent evt) {
         super.mouseReleased(evt);
@@ -203,7 +203,7 @@ public class DefaultDragTracker extends AbstractTool implements DragTracker {
         fireToolDone();
     }
 
-    @FeatureEntryPoint(value = "setDraggedfigure")
+    @FeatureEntryPoint(value = "#7-setDraggedfigure")
     @Override
     public void setDraggedFigure(Figure f) {
         anchorFigure = f;
