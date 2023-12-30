@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.draw.action;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.Figure;
 import java.util.*;
 import javax.swing.undo.*;
@@ -27,6 +28,7 @@ public class BringToFrontAction extends AbstractSelectedAction {
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint(value = "#5 - createInstance")
     public BringToFrontAction(DrawingEditor editor) {
         super(editor);
         ResourceBundleUtil labels
@@ -64,6 +66,7 @@ public class BringToFrontAction extends AbstractSelectedAction {
         });
     }
 
+    @FeatureEntryPoint(value = "#5 - BringToFront")
     public static void bringToFront(DrawingView view, Collection<Figure> figures) {
         Drawing drawing = view.getDrawing();
         for (Figure figure : drawing.sort(figures)) {
