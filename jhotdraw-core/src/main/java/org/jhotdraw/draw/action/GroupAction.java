@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.draw.action;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.draw.figure.CompositeFigure;
 import org.jhotdraw.draw.figure.GroupFigure;
@@ -35,6 +36,7 @@ public class GroupAction extends AbstractSelectedAction {
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint(value = "#2-CreateGroupActionInstance")
     public GroupAction(DrawingEditor editor) {
         this(editor, new GroupFigure(), true);
     }
@@ -155,6 +157,7 @@ public class GroupAction extends AbstractSelectedAction {
         return figures;
     }
 
+    @FeatureEntryPoint(value = "#2 - GroupFigures")
     public void groupFigures(DrawingView view, CompositeFigure group, Collection<Figure> figures) {
         Collection<Figure> sorted = view.getDrawing().sort(figures);
         int index = view.getDrawing().indexOf(sorted.iterator().next());
