@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.draw.tool;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.TextHolderFigure;
 import java.awt.*;
 import java.awt.event.*;
@@ -53,6 +54,7 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint(value = "#3-createEditInstance")
     public TextEditingTool(TextHolderFigure typingTarget) {
         this.typingTarget = typingTarget;
     }
@@ -135,6 +137,7 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
         //         view().checkDamage();
     }
 
+    @FeatureEntryPoint(value = "#3-keyRelease")
     @Override
     public void keyReleased(KeyEvent evt) {
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
