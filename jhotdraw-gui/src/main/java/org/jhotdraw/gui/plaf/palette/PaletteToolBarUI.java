@@ -1057,7 +1057,7 @@ public class PaletteToolBarUI extends ToolBarUI implements SwingConstants {
         Point origin = null;
         boolean isArmed = false;
 
-        @FeatureEntryPoint("tool palette - mouse pressed")
+        @FeatureEntryPoint("#6-mouse pressed")
         @Override
         public void mousePressed(MouseEvent evt) {
             if (!tb.isEnabled()) {
@@ -1077,7 +1077,7 @@ public class PaletteToolBarUI extends ToolBarUI implements SwingConstants {
             }
         }
 
-        @FeatureEntryPoint("tool palette - mouse released")
+        @FeatureEntryPoint("#6-mouse released")
         @Override
         public void mouseReleased(MouseEvent evt) {
             if (!tb.isEnabled()) {
@@ -1094,7 +1094,7 @@ public class PaletteToolBarUI extends ToolBarUI implements SwingConstants {
             isDragging = false;
         }
 
-        @FeatureEntryPoint("tool palette - mouse dragged")
+        @FeatureEntryPoint("#6-mouse dragged")
         @Override
         public void mouseDragged(MouseEvent evt) {
             if (!tb.isEnabled()) {
