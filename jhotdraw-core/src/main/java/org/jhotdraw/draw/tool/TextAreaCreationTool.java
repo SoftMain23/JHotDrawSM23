@@ -119,6 +119,7 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
      * If editing is in progress, this finishes editing.
      */
 
+    @FeatureEntryPoint("TextAreaCreation")
     @Override
     public void mousePressed(MouseEvent e) {
         // Note: The search sequence used here, must be
@@ -158,7 +159,7 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
         }
     }
 
-    @FeatureEntryPoint("BeginTextAreaEdit")
+
     protected void beginEdit(TextHolderFigure textHolder) {
         if (textArea == null) {
             textArea = new FloatingTextArea();
@@ -173,7 +174,7 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
         typingTarget = textHolder;
     }
 
-    @FeatureEntryPoint("GetFieldBounds")
+
     private Rectangle2D.Double getFieldBounds(TextHolderFigure figure) {
         Rectangle2D.Double r = figure.getDrawingArea();
         Insets2D.Double insets = figure.getInsets();
@@ -187,6 +188,15 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
         r.height += 4;
         return r;
     }
+
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        endEdit();
+        if (isToolDoneAfterCreation()) {
+            fireToolDone();
+        }
+    }
+
 
     protected void endEdit() {
         if (typingTarget != null) {
@@ -235,13 +245,5 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
             textArea.endOverlay();
         }
         //         view().checkDamage();
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent event) {
-        endEdit();
-        if (isToolDoneAfterCreation()) {
-            fireToolDone();
-        }
     }
 }
