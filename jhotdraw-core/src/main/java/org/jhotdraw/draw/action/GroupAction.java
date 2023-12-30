@@ -146,6 +146,7 @@ public class GroupAction extends AbstractSelectedAction {
         }
     }
 
+    @FeatureEntryPoint(value = "#2 - UnGroupFigures")
     public Collection<Figure> ungroupFigures(DrawingView view, CompositeFigure group) {
 // XXX - This code is redundant with UngroupAction
         LinkedList<Figure> figures = new LinkedList<>(group.getChildren());
