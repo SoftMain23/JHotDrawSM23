@@ -117,6 +117,7 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
      * Creates a new figure at the mouse location.
      * If editing is in progress, this finishes editing.
      */
+
     @Override
     public void mousePressed(MouseEvent e) {
         // Note: The search sequence used here, must be
@@ -156,6 +157,7 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
         }
     }
 
+
     protected void beginEdit(TextHolderFigure textHolder) {
         if (textArea == null) {
             textArea = new FloatingTextArea();
@@ -169,6 +171,7 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
         textArea.requestFocus();
         typingTarget = textHolder;
     }
+
 
     private Rectangle2D.Double getFieldBounds(TextHolderFigure figure) {
         Rectangle2D.Double r = figure.getDrawingArea();
