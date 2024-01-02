@@ -244,6 +244,7 @@ public class SelectionTool extends AbstractTool {
         Handle handle = view.findHandle(anchor);
         if (handle == null) {
             Figure figure = getFigure(view, evt);
+
             if (figure != null && figure.isSelectable()) {
                 return getDragTracker(figure);
             }
@@ -387,6 +388,10 @@ public class SelectionTool extends AbstractTool {
      */
     public void setDragTracker(DragTracker newValue) {
         dragTracker = newValue;
+    }
+
+    public Tool getTracker() {
+        return tracker;
     }
 
     /**

@@ -213,4 +213,12 @@ public class DefaultDragTracker extends AbstractTool implements DragTracker {
     public void setDraggedFigure(Figure f) {
         anchorFigure = f;
     }
+
+    public Boolean isDragging() {
+        return isDragging;
+    }
+
+    public Figure getDraggedFigure() {
+        return anchorFigure;
+    }
 }

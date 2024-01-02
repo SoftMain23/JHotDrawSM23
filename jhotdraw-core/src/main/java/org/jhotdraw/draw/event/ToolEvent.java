@@ -32,6 +32,7 @@ import org.jhotdraw.draw.tool.Tool;
 public class ToolEvent extends EventObject {
 
     private static final long serialVersionUID = 1L;
+    public static Object EventType;
     private Rectangle invalidatedArea;
     private DrawingView view;
 
