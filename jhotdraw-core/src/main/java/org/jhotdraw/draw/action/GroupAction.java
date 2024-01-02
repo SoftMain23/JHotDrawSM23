@@ -106,11 +106,6 @@ public class GroupAction extends AbstractSelectedAction {
                         ungroupFigures(view, group);
                         super.undo();
                     }
-
-                    @Override
-                    public boolean addEdit(UndoableEdit anEdit) {
-                        return super.addEdit(anEdit);
-                    }
                 };
                 groupFigures(view, group, ungroupedFigures);
                 fireUndoableEditHappened(edit);
