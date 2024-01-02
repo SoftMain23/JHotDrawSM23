@@ -96,6 +96,7 @@ public class DefaultDragTracker extends AbstractTool implements DragTracker {
     public void mousePressed(MouseEvent evt) {
         super.mousePressed(evt);
         DrawingView view = getView();
+
         if (evt.isShiftDown()) {
             view.setHandleDetailLevel(0);
             view.toggleSelection(anchorFigure);
@@ -107,23 +108,27 @@ public class DefaultDragTracker extends AbstractTool implements DragTracker {
             view.clearSelection();
             view.addToSelection(anchorFigure);
         }
-        if (!view.getSelectedFigures().isEmpty()) {
-            dragRect = null;
-            transformedFigures = new HashSet<>();
-            for (Figure f : view.getSelectedFigures()) {
-                if (f.isTransformable()) {
-                    transformedFigures.add(f);
-                    if (dragRect == null) {
-                        dragRect = f.getBounds();
-                    } else {
-                        dragRect.add(f.getBounds());
-                    }
+
+        if (view.getSelectedFigures().isEmpty()) {
+            return;
+        }
+
+        dragRect = null;
+        transformedFigures = new HashSet<>();
+        for (Figure f : view.getSelectedFigures()) {
+            if (f.isTransformable()) {
+                transformedFigures.add(f);
+                if (dragRect == null) {
+                    dragRect = f.getBounds();
+                } else {
+                    dragRect.add(f.getBounds());
                 }
             }
-            if (dragRect != null) {
-                anchorPoint = previousPoint = view.viewToDrawing(anchor);
-                anchorOrigin = previousOrigin = new Point2D.Double(dragRect.x, dragRect.y);
-            }
+        }
+
+        if (dragRect != null) {
+            anchorPoint = previousPoint = view.viewToDrawing(anchor);
+            anchorOrigin = previousOrigin = new Point2D.Double(dragRect.x, dragRect.y);
         }
     }
     @FeatureEntryPoint(value = "#7-mouseDragged")
@@ -131,7 +136,7 @@ public class DefaultDragTracker extends AbstractTool implements DragTracker {
     public void mouseDragged(MouseEvent evt) {
         DrawingView view = getView();
         if (!transformedFigures.isEmpty()) {
-            if (isDragging == false) {
+            if (!isDragging) {
                 isDragging = true;
                 updateCursor(editor.findView((Container) evt.getSource()), new Point(evt.getX(), evt.getY()));
             }
