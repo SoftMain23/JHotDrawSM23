@@ -192,51 +192,56 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
     }
 
 
+
+    protected void createUndoableEdit(TextHolderFigure editedFigure, String oldText, String newText) {
+        UndoableEdit edit = new AbstractUndoableEdit() {
+            @Override
+            public String getPresentationName() {
+                ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
+                return labels.getString("attribute.text.text");
+            }
+
+            @Override
+            public void undo() {
+                super.undo();
+                editedFigure.willChange();
+                editedFigure.setText(oldText);
+                editedFigure.changed();
+            }
+
+            @Override
+            public void redo() {
+                super.redo();
+                editedFigure.willChange();
+                editedFigure.setText(newText);
+                editedFigure.changed();
+            }
+        };
+        getDrawing().fireUndoableEditHappened(edit);
+    }
+
     protected void endEdit() {
         if (typingTarget != null) {
             typingTarget.willChange();
-            final TextHolderFigure editedFigure = typingTarget;
             final String oldText = typingTarget.getText();
             final String newText = textArea.getText();
+
             if (newText.length() > 0) {
                 typingTarget.setText(newText);
             } else {
                 if (createdFigure != null) {
                     getDrawing().remove(getAddedFigure());
-                    // XXX - Fire undoable edit here!!
                 } else {
                     typingTarget.setText("");
                 }
             }
-            UndoableEdit edit = new AbstractUndoableEdit() {
-                private static final long serialVersionUID = 1L;
 
-                @Override
-                public String getPresentationName() {
-                    ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
-                    return labels.getString("attribute.text.text");
-                }
+            createUndoableEdit(typingTarget, oldText, newText);
 
-                @Override
-                public void undo() {
-                    super.undo();
-                    editedFigure.willChange();
-                    editedFigure.setText(oldText);
-                    editedFigure.changed();
-                }
-
-                @Override
-                public void redo() {
-                    super.redo();
-                    editedFigure.willChange();
-                    editedFigure.setText(newText);
-                    editedFigure.changed();
-                }
-            };
-            getDrawing().fireUndoableEditHappened(edit);
             typingTarget.changed();
             typingTarget = null;
             textArea.endOverlay();
         }
     }
+
 }
