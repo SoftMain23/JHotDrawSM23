@@ -50,6 +50,9 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
     private static final long serialVersionUID = 1L;
     private FloatingTextField textField;
     private TextHolderFigure typingTarget;
+    private boolean escapePressed = false;
+
+
 
     /**
      * Creates a new instance.
@@ -142,8 +145,12 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
     @Override
     public void keyReleased(KeyEvent evt) {
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            escapePressed = true;
             fireToolDone();
         }
+    }
+    public boolean isEscapePressed() {
+        return escapePressed;
     }
 
     @Override
