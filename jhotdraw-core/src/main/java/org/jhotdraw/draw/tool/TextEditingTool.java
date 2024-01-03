@@ -91,6 +91,7 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
 
     @Override
     public void mouseReleased(MouseEvent evt) {
+        throw new UnsupportedOperationException("not yet implemented");
     }
 
     protected void endEdit() {
@@ -134,7 +135,7 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
             typingTarget = null;
             textField.endOverlay();
         }
-        //         view().checkDamage();
+
     }
 
     @FeatureEntryPoint(value = "#3-keyRelease")
