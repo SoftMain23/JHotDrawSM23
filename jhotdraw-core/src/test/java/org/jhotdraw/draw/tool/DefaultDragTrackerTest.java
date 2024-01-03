@@ -41,21 +41,22 @@ public class DefaultDragTrackerTest {
         view.getDrawing().add(figure);
 
         //Positions
-        double x = figure.getStartPoint().getX();
-        double y = figure.getStartPoint().getY();
+        int newPosX = 10;
+        int newPosY = 10;
 
         //Mouse events
         MouseEvent mousePress = new MouseEvent(view.getComponent(), MouseEvent.MOUSE_PRESSED, System.currentTimeMillis(), 0, 0, 0, 1, false);
         selectionTool.mousePressed(mousePress);
-        MouseEvent mouseDrag = new MouseEvent(view.getComponent(), MouseEvent.MOUSE_DRAGGED, System.currentTimeMillis(), 0, 10, 10, 0, false);
+        MouseEvent mouseDrag = new MouseEvent(view.getComponent(), MouseEvent.MOUSE_DRAGGED, System.currentTimeMillis(), 0, newPosX, newPosY, 0, false);
         selectionTool.mouseDragged(mouseDrag);
 
         //Assert if figure is moved to new position
-        if ((figure.getStartPoint().getX() != x || figure.getStartPoint().getY() != y)) {
-            assert(true);
-        } else {
-            assert(false);
-        }
+        double expectedX = 10.0;
+        double expectedY = 10.0;
+        double delta = 0.0001;
+
+        assertEquals(expectedX, figure.getStartPoint().getX(), delta);
+        assertEquals(expectedY, figure.getStartPoint().getY(), delta);
     }
 
     private static Drawing createDrawing() {
