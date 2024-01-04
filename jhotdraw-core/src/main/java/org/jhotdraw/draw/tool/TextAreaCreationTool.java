@@ -165,6 +165,7 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
         if (textHolder != typingTarget && typingTarget != null) {
             endEdit();
         }
+
         textArea.createOverlay(getView(), textHolder);
         textArea.setBounds(getFieldBounds(textHolder), textHolder.getText());
         textArea.requestFocus();
