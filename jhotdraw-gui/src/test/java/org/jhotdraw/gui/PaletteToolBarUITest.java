@@ -62,7 +62,28 @@ class PaletteToolBarUITest {
         Point origin = new Point(20, 30);
 
         paletteToolBarUI.floatAt(position, origin);
+        assertEquals(origin.x + position.x, paletteToolBarUI.floatingX);
+        assertEquals(origin.y + position.y, paletteToolBarUI.floatingY);
 
     }
+
+    /*@Test
+    public void testDragTo() {
+        // Set up the conditions for the test
+        when(toolBar.isFloatable()).thenReturn(true);
+        when(dragWindow.getOffset()).thenReturn(new Point(0, 0));  // Adjust as needed
+        when(toolBar.getSize()).thenReturn(new Dimension(100, 100));  // Adjust as needed
+        when(dockingSource.getLocationOnScreen()).thenReturn(new Point(0, 0));  // Adjust as needed
+
+        // Call the method under test
+        Point position = new Point(10, 10);  // Adjust as needed
+        Point origin = new Point(5, 5);  // Adjust as needed
+        paletteToolBarUI.dragTo(position, origin);
+
+        // Verify the results
+        // You'll need to verify the expected outcomes depending on what dragTo is supposed to do
+        assertEquals(dragWindow, times(1)).setLocation(10, 10);
+        // Add more verification/assertion statements as needed based on the expected behavior
+    }*/
 
 }
