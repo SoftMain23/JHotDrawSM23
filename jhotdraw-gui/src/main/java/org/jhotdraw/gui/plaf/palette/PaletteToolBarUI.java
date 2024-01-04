@@ -35,14 +35,14 @@ import javax.swing.plaf.*;
 public class PaletteToolBarUI extends ToolBarUI implements SwingConstants {
 
     private static final boolean IS_FLOATING_ALLOWED = false;
-    protected JToolBar toolBar;
+    public JToolBar toolBar;
     private boolean floating;
-    private int floatingX;
-    private int floatingY;
+    public int floatingX;
+    public int floatingY;
     private JFrame floatingFrame;
     private RootPaneContainer floatingToolBar;
-    protected DragWindow dragWindow;
-    private Container dockingSource;
+    public DragWindow dragWindow;
+    public Container dockingSource;
     private int dockingSensitivity = 0;
     protected int focusedCompIndex = -1;
     protected Color dockingColor = null;
@@ -894,7 +894,7 @@ public class PaletteToolBarUI extends ToolBarUI implements SwingConstants {
         }
     }
 
-    protected void floatAt(Point position, Point origin) {
+    public void floatAt(Point position, Point origin) {
         if (toolBar.isFloatable() == true) {
             try {
                 Point offset = dragWindow.getOffset();
@@ -1309,7 +1309,7 @@ public class PaletteToolBarUI extends ToolBarUI implements SwingConstants {
         }
     }
 
-    protected class DragWindow extends JWindow {
+    public class DragWindow extends JWindow {
 
         private static final long serialVersionUID = 1L;
         Color borderColor = Color.gray;
