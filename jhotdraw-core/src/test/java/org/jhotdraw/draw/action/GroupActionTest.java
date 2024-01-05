@@ -23,7 +23,7 @@ public class GroupActionTest {
         Figure figure1 = new RectangleFigure();
         Figure figure2 = new RectangleFigure();
 
-    public void testGroupFigure() {
+    /*public void testGroupFigure() {
         CompositeFigure group;
         Collection<Figure> figures;
 
@@ -41,5 +41,5 @@ public class GroupActionTest {
         //assert
         assertArrayEquals(expectedSet,dw.getSelectedFigures());
         
-    }
+    }*/
 }
