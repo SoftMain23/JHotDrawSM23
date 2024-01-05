@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.draw.tool;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.Figure;
 import java.awt.*;
 import java.awt.event.*;
@@ -84,15 +85,18 @@ public class DefaultDragTracker extends AbstractTool implements DragTracker {
     public DefaultDragTracker() {
     }
 
+    @FeatureEntryPoint(value = "#7-mouseMoved")
     @Override
     public void mouseMoved(MouseEvent evt) {
         updateCursor(editor.findView((Container) evt.getSource()), evt.getPoint());
     }
 
+    @FeatureEntryPoint(value = "#7-mousePressed")
     @Override
     public void mousePressed(MouseEvent evt) {
         super.mousePressed(evt);
         DrawingView view = getView();
+
         if (evt.isShiftDown()) {
             view.setHandleDetailLevel(0);
             view.toggleSelection(anchorFigure);
@@ -104,31 +108,35 @@ public class DefaultDragTracker extends AbstractTool implements DragTracker {
             view.clearSelection();
             view.addToSelection(anchorFigure);
         }
-        if (!view.getSelectedFigures().isEmpty()) {
-            dragRect = null;
-            transformedFigures = new HashSet<>();
-            for (Figure f : view.getSelectedFigures()) {
-                if (f.isTransformable()) {
-                    transformedFigures.add(f);
-                    if (dragRect == null) {
-                        dragRect = f.getBounds();
-                    } else {
-                        dragRect.add(f.getBounds());
-                    }
+
+        if (view.getSelectedFigures().isEmpty()) {
+            return;
+        }
+
+        dragRect = null;
+        transformedFigures = new HashSet<>();
+        for (Figure f : view.getSelectedFigures()) {
+            if (f.isTransformable()) {
+                transformedFigures.add(f);
+                if (dragRect == null) {
+                    dragRect = f.getBounds();
+                } else {
+                    dragRect.add(f.getBounds());
                 }
             }
-            if (dragRect != null) {
-                anchorPoint = previousPoint = view.viewToDrawing(anchor);
-                anchorOrigin = previousOrigin = new Point2D.Double(dragRect.x, dragRect.y);
-            }
+        }
+
+        if (dragRect != null) {
+            anchorPoint = previousPoint = view.viewToDrawing(anchor);
+            anchorOrigin = previousOrigin = new Point2D.Double(dragRect.x, dragRect.y);
         }
     }
-
+    @FeatureEntryPoint(value = "#7-mouseDragged")
     @Override
     public void mouseDragged(MouseEvent evt) {
         DrawingView view = getView();
         if (!transformedFigures.isEmpty()) {
-            if (isDragging == false) {
+            if (!isDragging) {
                 isDragging = true;
                 updateCursor(editor.findView((Container) evt.getSource()), new Point(evt.getX(), evt.getY()));
             }
@@ -153,6 +161,7 @@ public class DefaultDragTracker extends AbstractTool implements DragTracker {
         }
     }
 
+    @FeatureEntryPoint(value = "#7-mouseReleased")
     @Override
     public void mouseReleased(MouseEvent evt) {
         super.mouseReleased(evt);
@@ -199,8 +208,13 @@ public class DefaultDragTracker extends AbstractTool implements DragTracker {
         fireToolDone();
     }
 
+    @FeatureEntryPoint(value = "#7-setDraggedfigure")
     @Override
     public void setDraggedFigure(Figure f) {
         anchorFigure = f;
+    }
+
+    public Figure getDraggedFigure() {
+        return anchorFigure;
     }
 }

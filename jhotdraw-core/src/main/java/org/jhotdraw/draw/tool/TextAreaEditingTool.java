@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.draw.tool;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.TextHolderFigure;
 import java.awt.*;
 import java.awt.event.*;
@@ -88,6 +89,7 @@ public class TextAreaEditingTool extends AbstractTool implements ActionListener 
     public void draw(Graphics2D g) {
     }
 
+    @FeatureEntryPoint("BeginTextAreaEdit")
     protected void beginEdit(TextHolderFigure textHolder) {
         if (textArea == null) {
             textArea = new FloatingTextArea();
@@ -115,7 +117,7 @@ public class TextAreaEditingTool extends AbstractTool implements ActionListener 
         r.height += 4;
         return r;
     }
-
+    @FeatureEntryPoint("EndEditOfTextArea")
     protected void endEdit() {
         if (typingTarget != null) {
             typingTarget.willChange();

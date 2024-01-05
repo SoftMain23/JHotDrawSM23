@@ -132,4 +132,9 @@ public class DnDTracker extends AbstractTool implements DragTracker {
     public void setDraggedFigure(Figure f) {
         anchorFigure = f;
     }
+
+    @Override
+    public Figure getDraggedFigure() {
+        return anchorFigure;
+    }
 }

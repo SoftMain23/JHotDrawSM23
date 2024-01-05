@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.draw.action;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.draw.figure.CompositeFigure;
 import org.jhotdraw.draw.figure.GroupFigure;
@@ -25,7 +26,9 @@ public class GroupAction extends AbstractSelectedAction {
 
     private static final long serialVersionUID = 1L;
     public static final String ID = "edit.groupSelection";
+    private String baseName = "org.jhotdraw.draw.Labels";
     private CompositeFigure prototype;
+    
     /**
      * If this variable is true, this action groups figures.
      * If this variable is false, this action ungroups figures.
@@ -35,6 +38,7 @@ public class GroupAction extends AbstractSelectedAction {
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint(value = "#2-CreateGroupActionInstance")
     public GroupAction(DrawingEditor editor) {
         this(editor, new GroupFigure(), true);
     }
@@ -48,7 +52,7 @@ public class GroupAction extends AbstractSelectedAction {
         this.prototype = prototype;
         this.isGroupingAction = isGroupingAction;
         ResourceBundleUtil labels
-                = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
+                = ResourceBundleUtil.getBundle(baseName);
         labels.configureAction(this, ID);
         updateEnabledState();
     }
@@ -87,7 +91,7 @@ public class GroupAction extends AbstractSelectedAction {
                     @Override
                     public String getPresentationName() {
                         ResourceBundleUtil labels
-                                = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
+                                = ResourceBundleUtil.getBundle(baseName);
                         return labels.getString("edit.groupSelection.text");
                     }
 
@@ -101,11 +105,6 @@ public class GroupAction extends AbstractSelectedAction {
                     public void undo() throws CannotUndoException {
                         ungroupFigures(view, group);
                         super.undo();
-                    }
-
-                    @Override
-                    public boolean addEdit(UndoableEdit anEdit) {
-                        return super.addEdit(anEdit);
                     }
                 };
                 groupFigures(view, group, ungroupedFigures);
@@ -122,7 +121,7 @@ public class GroupAction extends AbstractSelectedAction {
                     @Override
                     public String getPresentationName() {
                         ResourceBundleUtil labels
-                                = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
+                                = ResourceBundleUtil.getBundle(baseName);
                         return labels.getString("edit.ungroupSelection.text");
                     }
 
@@ -144,6 +143,7 @@ public class GroupAction extends AbstractSelectedAction {
         }
     }
 
+    @FeatureEntryPoint(value = "#2 - UnGroupFigures")
     public Collection<Figure> ungroupFigures(DrawingView view, CompositeFigure group) {
 // XXX - This code is redundant with UngroupAction
         LinkedList<Figure> figures = new LinkedList<>(group.getChildren());
@@ -155,6 +155,7 @@ public class GroupAction extends AbstractSelectedAction {
         return figures;
     }
 
+    @FeatureEntryPoint(value = "#2 - GroupFigures")
     public void groupFigures(DrawingView view, CompositeFigure group, Collection<Figure> figures) {
         Collection<Figure> sorted = view.getDrawing().sort(figures);
         int index = view.getDrawing().indexOf(sorted.iterator().next());
